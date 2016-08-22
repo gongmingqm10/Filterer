@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		415E1B411D6B9756009C4B0F /* FilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415E1B401D6B9756009C4B0F /* FilterViewCell.swift */; };
+		415E1B431D6BAF33009C4B0F /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415E1B421D6BAF33009C4B0F /* FilterType.swift */; };
 		41B553141D66624400C18077 /* BWFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B553101D66624400C18077 /* BWFilter.swift */; };
 		41B553151D66624400C18077 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B553111D66624400C18077 /* Filter.swift */; };
 		41B553161D66624400C18077 /* ImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B553121D66624400C18077 /* ImageFilters.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		415E1B401D6B9756009C4B0F /* FilterViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewCell.swift; sourceTree = "<group>"; };
+		415E1B421D6BAF33009C4B0F /* FilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
 		41B553101D66624400C18077 /* BWFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWFilter.swift; sourceTree = "<group>"; };
 		41B553111D66624400C18077 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		41B553121D66624400C18077 /* ImageFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFilters.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				41B553111D66624400C18077 /* Filter.swift */,
 				41B553121D66624400C18077 /* ImageFilters.swift */,
 				41B553131D66624400C18077 /* LayerFilter.swift */,
+				415E1B421D6BAF33009C4B0F /* FilterType.swift */,
 			);
 			name = Filter;
 			path = filters;
@@ -308,6 +311,7 @@
 				41B553151D66624400C18077 /* Filter.swift in Sources */,
 				415E1B411D6B9756009C4B0F /* FilterViewCell.swift in Sources */,
 				41B5531B1D66626B00C18077 /* FilterFactory.swift in Sources */,
+				415E1B431D6BAF33009C4B0F /* FilterType.swift in Sources */,
 				41B553141D66624400C18077 /* BWFilter.swift in Sources */,
 				41B553161D66624400C18077 /* ImageFilters.swift in Sources */,
 				41C7D12C1D66560200E612BA /* AppDelegate.swift in Sources */,

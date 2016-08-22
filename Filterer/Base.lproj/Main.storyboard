@@ -75,19 +75,27 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dth-3I-qEf">
+                                <rect key="frame" x="0.0" y="64" width="600" height="436"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="dth-3I-qEf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="EIq-Ua-gVc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cNa-Nl-POS" secondAttribute="trailing" constant="-20" id="aHb-uV-ZbQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dth-3I-qEf" secondAttribute="trailing" constant="-20" id="bHy-gr-RBO"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1n3-bn-ege" secondAttribute="bottom" id="c3U-xg-xrl"/>
                             <constraint firstItem="1n3-bn-ege" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="dVF-y8-TUh"/>
                             <constraint firstItem="cNa-Nl-POS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="eN9-7i-r2y"/>
                             <constraint firstItem="cNa-Nl-POS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="fR7-6G-Lnw"/>
+                            <constraint firstItem="dth-3I-qEf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="44" id="oRs-N7-Icj"/>
+                            <constraint firstItem="1n3-bn-ege" firstAttribute="top" secondItem="dth-3I-qEf" secondAttribute="bottom" id="rTC-Ja-hn6"/>
                             <constraint firstItem="1n3-bn-ege" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="xwb-BU-MyO"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="filtersCollectionView" destination="1n3-bn-ege" id="i3o-GF-5LX"/>
+                        <outlet property="targetImage" destination="dth-3I-qEf" id="ApB-BF-sGi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
