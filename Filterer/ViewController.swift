@@ -12,12 +12,20 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICo
 
     @IBOutlet weak var targetImage: UIImageView!
     @IBOutlet weak var filtersCollectionView: UICollectionView!
+    @IBOutlet weak var densitySlider: UISlider! {
+        didSet {
+            densitySlider.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+        }
+    }
+    
     let filtersData = [["label": "Original", "image": "FilterOriginal"],
                        ["label": "Black & White", "image": "FilterOriginal"],
                        ["label": "Layer", "image": "FilterOriginal"]]
     let filtersType = [FilterType.ORIGINAL, FilterType.BW, FilterType.LAYER]
+
     var originalImage: UIImage?
     var imageFilters: ImageFilters?
+    var selectedType: FilterType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +34,8 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICo
         filtersCollectionView.delegate = self
         originalImage = UIImage(named: "SampleImage")!
         
+        densitySlider.hidden = true
+        
         targetImage.image = originalImage
         imageFilters = ImageFilters(image: originalImage!)
     }
@@ -33,6 +43,10 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICo
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func changeDensityValue(sender: AnyObject) {
+        showFilterImage()
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -52,12 +66,21 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICo
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        selectedType = filtersType[indexPath.row]
+        densitySlider.hidden = selectedType == FilterType.ORIGINAL
+        densitySlider.value = 50
+
+        showFilterImage()
+    }
+    
+    func showFilterImage() {
+        let density = densitySlider.value * 1.0 / densitySlider.maximumValue
         var processedImage: UIImage
-        switch filtersType[indexPath.row] {
+        switch selectedType! {
         case .BW:
-            processedImage = imageFilters!.apply(BWFilter(intensity: 0.5))
+            processedImage = imageFilters!.apply(BWFilter(intensity: density))
         case .LAYER:
-            processedImage = imageFilters!.apply(LayerFilter(intensity: 0.5))
+            processedImage = imageFilters!.apply(LayerFilter(intensity: density))
         default:
             processedImage = originalImage!
         }

@@ -3,9 +3,9 @@ import Foundation
 class BWFilter: Filter {
     let intensity: Float
     
-    let redCoefficient = 0.299
-    let greenCoefficient = 0.587
-    let blueCoefficient = 0.114
+    let redCoefficient: Float = 0.299
+    let greenCoefficient: Float = 0.587
+    let blueCoefficient: Float = 0.114
     
     required init(intensity: Float) {
         self.intensity = intensity
@@ -25,12 +25,12 @@ class BWFilter: Filter {
     }
     
     private func calculateGray(pixel: Pixel) -> UInt8 {
-        //TODO: Apply the intensity
-        let blue = Double(pixel.blue)
-        let red = Double(pixel.red)
-        let green = Double(pixel.green)
+        let blue = Float(pixel.blue)
+        let red = Float(pixel.red)
+        let green = Float(pixel.green)
         let totalSquare = redCoefficient * red * red + blueCoefficient * blue * blue + greenCoefficient * green * green
-        return UInt8(sqrt(totalSquare))
+        let calculatedGray = max(0, min(sqrt(totalSquare) - (intensity - 0.5) * 100, 255))
+        return UInt8(calculatedGray)
     }
     
 }
