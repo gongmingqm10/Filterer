@@ -17,6 +17,9 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICo
             densitySlider.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
         }
     }
+    @IBOutlet weak var actionStackView: UIStackView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    
     
     let filtersData = [["label": "Original", "image": "FilterOriginal"],
                        ["label": "Black & White", "image": "FilterOriginal"],
@@ -29,15 +32,18 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
         filtersCollectionView.dataSource = self
         filtersCollectionView.delegate = self
-        originalImage = UIImage(named: "SampleImage")!
         
         densitySlider.hidden = true
+        filtersCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        targetImage.translatesAutoresizingMaskIntoConstraints = false
+
+        originalImage = UIImage(named: "SampleImage")!
+        imageFilters = ImageFilters(image: originalImage!)
         
         targetImage.image = originalImage
-        imageFilters = ImageFilters(image: originalImage!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,6 +55,32 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICo
         showFilterImage()
     }
     
+    @IBAction func onFilter(sender: UIButton) {
+        sender.selected = !sender.selected
+
+        if(sender.selected) {
+            showFiltersColectionView()
+        } else {
+            hideFiltersCollectionView()
+        }
+    }
+
+    func showFiltersColectionView() {
+        view.addSubview(filtersCollectionView)
+        
+        let bottomConstraint = filtersCollectionView.bottomAnchor.constraintEqualToAnchor(actionStackView.topAnchor)
+        let leftConstraint = filtersCollectionView.leftAnchor.constraintEqualToAnchor(view.leftAnchor)
+        let rightConstraint = filtersCollectionView.rightAnchor.constraintEqualToAnchor(view.rightAnchor)
+        let heightConstraint = filtersCollectionView.heightAnchor.constraintEqualToConstant(100)
+        NSLayoutConstraint.activateConstraints([bottomConstraint, leftConstraint, rightConstraint, heightConstraint])
+        view.layoutIfNeeded()
+    }
+    
+    func hideFiltersCollectionView() {
+        filtersCollectionView.removeFromSuperview()
+        view.layoutIfNeeded()
+    }
+
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filtersData.count
     }
