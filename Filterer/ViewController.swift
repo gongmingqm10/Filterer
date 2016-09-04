@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICollectionViewDataSource {
+class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource,
+    UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var targetImage: UIImageView!
     @IBOutlet weak var filtersCollectionView: UICollectionView!
@@ -40,10 +41,7 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICo
         filtersCollectionView.translatesAutoresizingMaskIntoConstraints = false
         targetImage.translatesAutoresizingMaskIntoConstraints = false
 
-        originalImage = UIImage(named: "SampleImage")!
-        imageFilters = ImageFilters(image: originalImage!)
-        
-        targetImage.image = originalImage
+        loadImage(UIImage(named: "SampleImage")!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,10 +49,28 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICo
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onShare(sender: AnyObject) {
+        let activityController = UIActivityViewController(activityItems: [targetImage.image!], applicationActivities: nil)
+        presentViewController(activityController, animated: true, completion: nil)
+    }
+
     @IBAction func changeDensityValue(sender: AnyObject) {
         showFilterImage()
     }
     
+    @IBAction func onNewPhoto(sender: AnyObject) {
+        let actionSheet = UIAlertController(title: "New photo", message: nil, preferredStyle: .ActionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { (action) in
+            self.showCamera()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Album", style: .Default, handler: { (action) in
+            self.showAlbum()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+        
+        self.presentViewController(actionSheet, animated: true, completion: nil)
+    }
+
     @IBAction func onFilter(sender: UIButton) {
         sender.selected = !sender.selected
 
@@ -63,6 +79,12 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICo
         } else {
             hideFiltersCollectionView()
         }
+    }
+    
+    func loadImage(image: UIImage) {
+        originalImage = image
+        imageFilters = ImageFilters(image: image)
+        targetImage.image = image
     }
 
     func showFiltersColectionView() {
@@ -127,6 +149,32 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICo
             processedImage = originalImage!
         }
         targetImage.image = processedImage
+    }
+    
+    func showCamera() {
+        let cameraPicker = UIImagePickerController()
+        cameraPicker.delegate = self
+        cameraPicker.sourceType = .Camera
+        presentViewController(cameraPicker, animated: true, completion: nil)
+    }
+    
+    func showAlbum() {
+        let albumPicker = UIImagePickerController()
+        albumPicker.delegate = self
+        albumPicker.sourceType = .PhotoLibrary
+        presentViewController(albumPicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        // when user click the cancel button, should handle it here.
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        dismissViewControllerAnimated(true, completion: nil)
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            loadImage(image)
+        }
     }
 
 
