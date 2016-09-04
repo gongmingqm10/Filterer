@@ -71,14 +71,24 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout ,UICo
         let bottomConstraint = filtersCollectionView.bottomAnchor.constraintEqualToAnchor(actionStackView.topAnchor)
         let leftConstraint = filtersCollectionView.leftAnchor.constraintEqualToAnchor(view.leftAnchor)
         let rightConstraint = filtersCollectionView.rightAnchor.constraintEqualToAnchor(view.rightAnchor)
-        let heightConstraint = filtersCollectionView.heightAnchor.constraintEqualToConstant(100)
+        let heightConstraint = filtersCollectionView.heightAnchor.constraintEqualToConstant(119)
         NSLayoutConstraint.activateConstraints([bottomConstraint, leftConstraint, rightConstraint, heightConstraint])
         view.layoutIfNeeded()
+        
+        filtersCollectionView.alpha = 0
+        UIView.animateWithDuration(0.4) {
+            self.filtersCollectionView.alpha = 1
+        }
     }
     
     func hideFiltersCollectionView() {
-        filtersCollectionView.removeFromSuperview()
-        view.layoutIfNeeded()
+        UIView.animateWithDuration(0.4, animations: { 
+            self.filtersCollectionView.alpha = 0
+            }) { completed in
+                if completed {
+                    self.filtersCollectionView.removeFromSuperview()
+                }
+        }
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

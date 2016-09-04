@@ -25,10 +25,10 @@
                                 </items>
                             </navigationBar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dth-3I-qEf">
-                                <rect key="frame" x="0.0" y="70" width="600" height="374"/>
+                                <rect key="frame" x="0.0" y="70" width="600" height="355"/>
                             </imageView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="3xU-FC-ROf">
-                                <rect key="frame" x="494" y="242" width="118" height="31"/>
+                                <rect key="frame" x="494" y="232.5" width="118" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="114" id="VbL-ZT-zSq"/>
                                 </constraints>
@@ -67,7 +67,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="3xU-FC-ROf" secondAttribute="trailing" constant="-30" id="8v4-32-emu"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="dth-3I-qEf" secondAttribute="bottom" constant="156" id="Ctf-0D-gVz"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="dth-3I-qEf" secondAttribute="bottom" constant="175" id="Ctf-0D-gVz"/>
                             <constraint firstItem="dth-3I-qEf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="EIq-Ua-gVc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KXT-A4-Mgk" secondAttribute="trailing" constant="-20" id="VRL-eK-DNa"/>
                             <constraint firstItem="KXT-A4-Mgk" firstAttribute="top" secondItem="dth-3I-qEf" secondAttribute="bottom" id="WOF-LN-dWl"/>
