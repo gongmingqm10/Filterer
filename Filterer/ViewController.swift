@@ -22,11 +22,15 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
     @IBOutlet weak var navigationBar: UINavigationBar!
     
     
-    let filtersData = [["label": "Original", "image": "FilterOriginal"],
-                       ["label": "Black & White", "image": "FilterOriginal"],
-                       ["label": "Layer", "image": "FilterOriginal"]]
-    let filtersType = [FilterType.ORIGINAL, FilterType.BW, FilterType.LAYER]
-
+    let filtersData = [
+        FilterModel(label: "Original", image: UIImage(named: "FilterOriginal")!, filterType: FilterType.ORIGINAL, adjustable: false),
+        FilterModel(label: "Gray", image: UIImage(named: "FilterGray")!, filterType: FilterType.BW, adjustable: true),
+        FilterModel(label: "Layer", image: UIImage(named: "FilterLayer")!, filterType: FilterType.LAYER, adjustable: false),
+        FilterModel(label: "Black", image: UIImage(named: "FilterBlack")!, filterType: FilterType.BLACK, adjustable: false),
+        FilterModel(label: "Reverse", image: UIImage(named: "FilterReverse")!, filterType: FilterType.REVERSE, adjustable: false),
+        FilterModel(label: "Relief", image: UIImage(named: "FilterRelief")!, filterType: FilterType.RELIEF, adjustable: false)
+    ]
+    
     var originalImage: UIImage?
     var imageFilters: ImageFilters?
     var selectedType: FilterType?
@@ -120,14 +124,15 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let filterViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("FilterViewCell", forIndexPath: indexPath) as! FilterViewCell
         let filterData = filtersData[indexPath.row]
-        filterViewCell.populate(filterData["label"]!, imageName: filterData["image"]!)
+        filterViewCell.populate(filterData.label, image: filterData.image)
     
         return filterViewCell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        selectedType = filtersType[indexPath.row]
-        densitySlider.hidden = selectedType == FilterType.ORIGINAL
+        let filterData = filtersData[indexPath.row]
+        selectedType = filterData.filterType
+        densitySlider.hidden = !filterData.adjustable
         densitySlider.value = 50
 
         showFilterImage()
@@ -140,7 +145,13 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
         case .BW:
             processedImage = imageFilters!.apply(BWFilter(intensity: density))
         case .LAYER:
-            processedImage = imageFilters!.apply(LayerFilter(intensity: density))
+            processedImage = imageFilters!.apply(LayerFilter())
+        case .BLACK:
+            processedImage = imageFilters!.apply(BlackFilter())
+        case .REVERSE:
+            processedImage = imageFilters!.apply(ReverseFilter())
+        case .RELIEF:
+            processedImage = imageFilters!.apply(ReliefFilter())
         default:
             processedImage = originalImage!
         }

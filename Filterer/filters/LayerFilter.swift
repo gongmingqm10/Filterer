@@ -2,12 +2,6 @@ import Foundation
 
 public class LayerFilter: Filter {
     
-    let intensity: Float
-    
-    init(intensity: Float) {
-        self.intensity = intensity
-    }
-    
     public func apply(inout rgbaImage: RGBAImage) {
         for y in 0..<rgbaImage.height {
             for x in 0..<rgbaImage.width {
@@ -21,9 +15,6 @@ public class LayerFilter: Filter {
     }
     
     private func getLayerValue(pixelColor: UInt8) -> UInt8 {
-        let layers = Int(intensity * 10)
-        //TODO: should use the intensity to design how many layers to distribute
-        
         var layerValue: Double
         switch Int(pixelColor) {
         case 0..<64:

@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		415E1B411D6B9756009C4B0F /* FilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415E1B401D6B9756009C4B0F /* FilterViewCell.swift */; };
 		415E1B431D6BAF33009C4B0F /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415E1B421D6BAF33009C4B0F /* FilterType.swift */; };
+		41A7B2931D7E21D5003A785D /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A7B2921D7E21D5003A785D /* FilterModel.swift */; };
+		41A7B2951D7E2521003A785D /* BlackFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A7B2941D7E2521003A785D /* BlackFilter.swift */; };
+		41A7B2971D7E288A003A785D /* ReverseFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A7B2961D7E288A003A785D /* ReverseFilter.swift */; };
+		41A7B2991D7E2A7B003A785D /* ReliefFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A7B2981D7E2A7B003A785D /* ReliefFilter.swift */; };
 		41B553141D66624400C18077 /* BWFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B553101D66624400C18077 /* BWFilter.swift */; };
 		41B553151D66624400C18077 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B553111D66624400C18077 /* Filter.swift */; };
 		41B553161D66624400C18077 /* ImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B553121D66624400C18077 /* ImageFilters.swift */; };
 		41B553171D66624400C18077 /* LayerFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B553131D66624400C18077 /* LayerFilter.swift */; };
-		41B5531B1D66626B00C18077 /* FilterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B553191D66626B00C18077 /* FilterFactory.swift */; };
 		41B5531C1D66626B00C18077 /* RGBAImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B5531A1D66626B00C18077 /* RGBAImage.swift */; };
 		41B553201D6670F200C18077 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41B5531F1D6670F200C18077 /* Images.xcassets */; };
 		41BB59A41D7CCFCD0011CB63 /* SimpleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BB59A31D7CCFCD0011CB63 /* SimpleTableViewController.swift */; };
@@ -45,11 +48,14 @@
 /* Begin PBXFileReference section */
 		415E1B401D6B9756009C4B0F /* FilterViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewCell.swift; sourceTree = "<group>"; };
 		415E1B421D6BAF33009C4B0F /* FilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
+		41A7B2921D7E21D5003A785D /* FilterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
+		41A7B2941D7E2521003A785D /* BlackFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackFilter.swift; sourceTree = "<group>"; };
+		41A7B2961D7E288A003A785D /* ReverseFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverseFilter.swift; sourceTree = "<group>"; };
+		41A7B2981D7E2A7B003A785D /* ReliefFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReliefFilter.swift; sourceTree = "<group>"; };
 		41B553101D66624400C18077 /* BWFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BWFilter.swift; sourceTree = "<group>"; };
 		41B553111D66624400C18077 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		41B553121D66624400C18077 /* ImageFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFilters.swift; sourceTree = "<group>"; };
 		41B553131D66624400C18077 /* LayerFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerFilter.swift; sourceTree = "<group>"; };
-		41B553191D66626B00C18077 /* FilterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterFactory.swift; sourceTree = "<group>"; };
 		41B5531A1D66626B00C18077 /* RGBAImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBAImage.swift; sourceTree = "<group>"; };
 		41B5531F1D6670F200C18077 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		41BB59A31D7CCFCD0011CB63 /* SimpleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTableViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +98,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		41A7B2911D7E21C5003A785D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				41A7B2921D7E21D5003A785D /* FilterModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		41B5530E1D6661FC00C18077 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +124,9 @@
 				41B553121D66624400C18077 /* ImageFilters.swift */,
 				41B553131D66624400C18077 /* LayerFilter.swift */,
 				415E1B421D6BAF33009C4B0F /* FilterType.swift */,
+				41A7B2941D7E2521003A785D /* BlackFilter.swift */,
+				41A7B2961D7E288A003A785D /* ReverseFilter.swift */,
+				41A7B2981D7E2A7B003A785D /* ReliefFilter.swift */,
 			);
 			name = Filter;
 			path = filters;
@@ -118,7 +135,6 @@
 		41B553181D66626B00C18077 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				41B553191D66626B00C18077 /* FilterFactory.swift */,
 				41B5531A1D66626B00C18077 /* RGBAImage.swift */,
 			);
 			name = Helper;
@@ -148,6 +164,7 @@
 		41C7D12A1D66560200E612BA /* Filterer */ = {
 			isa = PBXGroup;
 			children = (
+				41A7B2911D7E21C5003A785D /* Model */,
 				41B553181D66626B00C18077 /* Helper */,
 				41B5530F1D66624400C18077 /* Filter */,
 				41B5530E1D6661FC00C18077 /* View */,
@@ -312,13 +329,16 @@
 				41C7D12E1D66560200E612BA /* ViewController.swift in Sources */,
 				41B5531C1D66626B00C18077 /* RGBAImage.swift in Sources */,
 				41BB59A41D7CCFCD0011CB63 /* SimpleTableViewController.swift in Sources */,
+				41A7B2931D7E21D5003A785D /* FilterModel.swift in Sources */,
 				41B553151D66624400C18077 /* Filter.swift in Sources */,
 				415E1B411D6B9756009C4B0F /* FilterViewCell.swift in Sources */,
-				41B5531B1D66626B00C18077 /* FilterFactory.swift in Sources */,
+				41A7B2991D7E2A7B003A785D /* ReliefFilter.swift in Sources */,
 				415E1B431D6BAF33009C4B0F /* FilterType.swift in Sources */,
 				41B553141D66624400C18077 /* BWFilter.swift in Sources */,
 				41B553161D66624400C18077 /* ImageFilters.swift in Sources */,
 				41C7D12C1D66560200E612BA /* AppDelegate.swift in Sources */,
+				41A7B2951D7E2521003A785D /* BlackFilter.swift in Sources */,
+				41A7B2971D7E288A003A785D /* ReverseFilter.swift in Sources */,
 				41B553171D66624400C18077 /* LayerFilter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
