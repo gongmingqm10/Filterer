@@ -9,7 +9,6 @@
 import Foundation
 
 enum FilterType {
-    case ORIGINAL
     case BW
     case BLACK
     case LAYER

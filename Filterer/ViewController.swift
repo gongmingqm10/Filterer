@@ -18,12 +18,13 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
             densitySlider.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
         }
     }
+    @IBOutlet weak var originalLabel: UILabel!
     @IBOutlet weak var actionStackView: UIStackView!
     @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var compareBtn: UIButton!
     
-    
+    let filterCellSelectedColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.5)
     let filtersData = [
-        FilterModel(label: "Original", image: UIImage(named: "FilterOriginal")!, filterType: FilterType.ORIGINAL, adjustable: false),
         FilterModel(label: "Gray", image: UIImage(named: "FilterGray")!, filterType: FilterType.BW, adjustable: true),
         FilterModel(label: "Layer", image: UIImage(named: "FilterLayer")!, filterType: FilterType.LAYER, adjustable: false),
         FilterModel(label: "Black", image: UIImage(named: "FilterBlack")!, filterType: FilterType.BLACK, adjustable: false),
@@ -46,6 +47,11 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
         targetImage.translatesAutoresizingMaskIntoConstraints = false
 
         loadImage(UIImage(named: "SampleImage")!)
+        compareBtn.enabled = false
+        
+        let tap = UILongPressGestureRecognizer(target: self, action: #selector(ViewController.imageTouched(_:)))
+        tap.minimumPressDuration = 0
+        targetImage.addGestureRecognizer(tap)
     }
     
     override func didReceiveMemoryWarning() {
@@ -75,6 +81,17 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
         self.presentViewController(actionSheet, animated: true, completion: nil)
     }
 
+    @IBAction func onCompare(sender: UIButton) {
+        if sender.selected {
+            showFilterImage()
+        } else {
+            updateTargetImage(originalImage!)
+            originalLabel.hidden = false
+        }
+        
+        sender.selected = !sender.selected
+    }
+    
     @IBAction func onFilter(sender: UIButton) {
         sender.selected = !sender.selected
 
@@ -82,6 +99,18 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
             showFiltersColectionView()
         } else {
             hideFiltersCollectionView()
+        }
+    }
+    
+    func imageTouched(gesture: UITapGestureRecognizer) {
+        if selectedType == nil {
+            return
+        }
+        if gesture.state == .Began {
+            updateTargetImage(originalImage!)
+            originalLabel.hidden = false
+        } else if gesture.state == .Ended {
+            showFilterImage()
         }
     }
     
@@ -120,25 +149,44 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filtersData.count
     }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        if let filterViewCell = collectionView.cellForItemAtIndexPath(indexPath) as? FilterViewCell {
+            UIView.animateWithDuration(0.1) {
+                filterViewCell.backgroundColor = UIColor.clearColor()
+                filterViewCell.selected = false
+            }
+        }
+    }
  
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let filterViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("FilterViewCell", forIndexPath: indexPath) as! FilterViewCell
         let filterData = filtersData[indexPath.row]
         filterViewCell.populate(filterData.label, image: filterData.image)
+        filterViewCell.backgroundColor = filterViewCell.selected ? filterCellSelectedColor : UIColor.clearColor()
     
         return filterViewCell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let filterViewCell = collectionView.cellForItemAtIndexPath(indexPath) as? FilterViewCell {
+            UIView.animateWithDuration(0.1) {
+                filterViewCell.backgroundColor = self.filterCellSelectedColor
+                filterViewCell.selected = true
+            }
+        }
+
         let filterData = filtersData[indexPath.row]
         selectedType = filterData.filterType
         densitySlider.hidden = !filterData.adjustable
         densitySlider.value = 50
-
         showFilterImage()
     }
     
     func showFilterImage() {
+        compareBtn.enabled = true
+        originalLabel.hidden = true
+        
         let density = densitySlider.value * 1.0 / densitySlider.maximumValue
         var processedImage: UIImage
         switch selectedType! {
@@ -152,10 +200,17 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
             processedImage = imageFilters!.apply(ReverseFilter())
         case .RELIEF:
             processedImage = imageFilters!.apply(ReliefFilter())
-        default:
-            processedImage = originalImage!
         }
-        targetImage.image = processedImage
+        
+        updateTargetImage(processedImage)
+    }
+    
+    private func updateTargetImage(processedImage: UIImage) {
+        self.targetImage.alpha = 0.2
+        self.targetImage.image = processedImage
+        UIView.animateWithDuration(0.75, animations: {
+            self.targetImage.alpha = 1
+        })
     }
     
     func showCamera() {

@@ -20,15 +20,17 @@
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cNa-Nl-POS">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <gestureRecognizers/>
                                 <items>
                                     <navigationItem title="Magic Filterer" id="upC-Dt-4EL"/>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dth-3I-qEf">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dth-3I-qEf">
                                 <rect key="frame" x="0.0" y="70" width="600" height="355"/>
+                                <gestureRecognizers/>
                             </imageView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="3xU-FC-ROf">
-                                <rect key="frame" x="494" y="232.5" width="118" height="31"/>
+                                <rect key="frame" x="494" y="232" width="118" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="114" id="VbL-ZT-zSq"/>
                                 </constraints>
@@ -56,6 +58,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wnu-es-IwA">
                                         <rect key="frame" x="300" y="0.0" width="150" height="56"/>
                                         <state key="normal" title="Compare"/>
+                                        <connections>
+                                            <action selector="onCompare:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UaJ-JP-1Il"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W90-JZ-KHS">
                                         <rect key="frame" x="450" y="0.0" width="150" height="56"/>
@@ -69,34 +74,38 @@
                                     <constraint firstAttribute="height" constant="56" id="Q3K-Sb-UTe"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Original" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYq-KR-JSV">
+                                <rect key="frame" x="271" y="85" width="59" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="pYq-KR-JSV" firstAttribute="centerX" secondItem="dth-3I-qEf" secondAttribute="centerX" id="4ah-Rn-90X"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3xU-FC-ROf" secondAttribute="trailing" constant="-30" id="8v4-32-emu"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="dth-3I-qEf" secondAttribute="bottom" constant="175" id="Ctf-0D-gVz"/>
                             <constraint firstItem="dth-3I-qEf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="EIq-Ua-gVc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KXT-A4-Mgk" secondAttribute="trailing" constant="-20" id="VRL-eK-DNa"/>
-                            <constraint firstItem="KXT-A4-Mgk" firstAttribute="top" secondItem="dth-3I-qEf" secondAttribute="bottom" id="WOF-LN-dWl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cNa-Nl-POS" secondAttribute="trailing" constant="-20" id="aHb-uV-ZbQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dth-3I-qEf" secondAttribute="trailing" constant="-20" id="bHy-gr-RBO"/>
                             <constraint firstItem="cNa-Nl-POS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="eN9-7i-r2y"/>
                             <constraint firstItem="cNa-Nl-POS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="fR7-6G-Lnw"/>
                             <constraint firstItem="3xU-FC-ROf" firstAttribute="centerY" secondItem="dth-3I-qEf" secondAttribute="centerY" id="j6l-FC-I84"/>
+                            <constraint firstItem="pYq-KR-JSV" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="65" id="nVM-ei-2n5"/>
                             <constraint firstItem="dth-3I-qEf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="oRs-N7-Icj"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="KXT-A4-Mgk" secondAttribute="bottom" id="y7U-7x-l2e"/>
                             <constraint firstItem="KXT-A4-Mgk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="zRw-d6-t6b"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="WOF-LN-dWl"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="actionStackView" destination="KXT-A4-Mgk" id="mPU-Li-A9l"/>
+                        <outlet property="compareBtn" destination="Wnu-es-IwA" id="Ex1-Mw-4xS"/>
                         <outlet property="densitySlider" destination="3xU-FC-ROf" id="ZPS-da-wgl"/>
                         <outlet property="filtersCollectionView" destination="1n3-bn-ege" id="i3o-GF-5LX"/>
                         <outlet property="navigationBar" destination="cNa-Nl-POS" id="Hc7-Lx-wag"/>
+                        <outlet property="originalLabel" destination="pYq-KR-JSV" id="ttO-Sg-8jS"/>
                         <outlet property="targetImage" destination="dth-3I-qEf" id="ApB-BF-sGi"/>
                     </connections>
                 </viewController>
