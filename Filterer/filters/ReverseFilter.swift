@@ -9,7 +9,7 @@
 import Foundation
 
 class ReverseFilter: Filter {
-    func apply(inout rgbaImage: RGBAImage) {
+    func apply(_ rgbaImage: inout RGBAImage) {
         for y in 0..<rgbaImage.height {
             for x in 0..<rgbaImage.width {
                 let index = x + y * rgbaImage.width

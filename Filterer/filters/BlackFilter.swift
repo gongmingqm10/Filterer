@@ -10,7 +10,7 @@ import Foundation
 
 class BlackFilter: Filter {
 
-    func apply(inout rgbaImage: RGBAImage) {
+    func apply(_ rgbaImage: inout RGBAImage) {
         for y in 0..<rgbaImage.height {
             for x in 0..<rgbaImage.width {
                 let index = x + y * rgbaImage.width
@@ -23,7 +23,7 @@ class BlackFilter: Filter {
         }
     }
     
-    private func calculateBlack(pixel: Pixel) -> UInt8 {
+    fileprivate func calculateBlack(_ pixel: Pixel) -> UInt8 {
         let blue = Float(pixel.blue)
         let red = Float(pixel.red)
         let green = Float(pixel.green)

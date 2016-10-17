@@ -13,7 +13,7 @@ class FilterViewCell: UICollectionViewCell {
     @IBOutlet weak var filterCellLabel: UILabel!
     @IBOutlet weak var filterCellImage: UIImageView!
     
-    func populate(text: String, image: UIImage) {
+    func populate(_ text: String, image: UIImage) {
         filterCellLabel.text = text
         filterCellImage.image = image
     }

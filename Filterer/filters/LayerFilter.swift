@@ -1,8 +1,8 @@
 import Foundation
 
-public class LayerFilter: Filter {
+open class LayerFilter: Filter {
     
-    public func apply(inout rgbaImage: RGBAImage) {
+    open func apply(_ rgbaImage: inout RGBAImage) {
         for y in 0..<rgbaImage.height {
             for x in 0..<rgbaImage.width {
                 let index = x + y * rgbaImage.width
@@ -14,7 +14,7 @@ public class LayerFilter: Filter {
         }
     }
     
-    private func getLayerValue(pixelColor: UInt8) -> UInt8 {
+    fileprivate func getLayerValue(_ pixelColor: UInt8) -> UInt8 {
         var layerValue: Double
         switch Int(pixelColor) {
         case 0..<64:

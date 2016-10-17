@@ -9,9 +9,9 @@
 import Foundation
 
 enum FilterType {
-    case BW
-    case BLACK
-    case LAYER
-    case REVERSE
-    case RELIEF
+    case bw
+    case black
+    case layer
+    case reverse
+    case relief
 }

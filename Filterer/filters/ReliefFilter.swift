@@ -9,7 +9,7 @@
 import Foundation
 
 class ReliefFilter: Filter {
-    func apply(inout rgbaImage: RGBAImage) {
+    func apply(_ rgbaImage: inout RGBAImage) {
         
         for y in 0..<rgbaImage.height {
             var lastPixel = rgbaImage.pixels[y * rgbaImage.width]

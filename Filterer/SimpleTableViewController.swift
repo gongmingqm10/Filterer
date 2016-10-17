@@ -20,17 +20,17 @@ class SimpleTableViewController: UIViewController, UITableViewDataSource, UITabl
         simpleTableView.delegate = self
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filters.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = simpleTableView.dequeueReusableCellWithIdentifier("SimpleCell", forIndexPath: indexPath)
-        cell.textLabel!.text = filters[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = simpleTableView.dequeueReusableCell(withIdentifier: "SimpleCell", for: indexPath)
+        cell.textLabel!.text = filters[(indexPath as NSIndexPath).row]
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print(filters[indexPath.row])
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(filters[(indexPath as NSIndexPath).row])
     }
 }

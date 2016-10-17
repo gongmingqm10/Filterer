@@ -15,7 +15,7 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
     @IBOutlet weak var filtersCollectionView: UICollectionView!
     @IBOutlet weak var densitySlider: UISlider! {
         didSet {
-            densitySlider.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+            densitySlider.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI_2))
         }
     }
     @IBOutlet weak var originalLabel: UILabel!
@@ -25,11 +25,11 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
     
     let filterCellSelectedColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.5)
     let filtersData = [
-        FilterModel(label: "Gray", image: UIImage(named: "FilterGray")!, filterType: FilterType.BW, adjustable: true),
-        FilterModel(label: "Layer", image: UIImage(named: "FilterLayer")!, filterType: FilterType.LAYER, adjustable: false),
-        FilterModel(label: "Black", image: UIImage(named: "FilterBlack")!, filterType: FilterType.BLACK, adjustable: false),
-        FilterModel(label: "Reverse", image: UIImage(named: "FilterReverse")!, filterType: FilterType.REVERSE, adjustable: false),
-        FilterModel(label: "Relief", image: UIImage(named: "FilterRelief")!, filterType: FilterType.RELIEF, adjustable: false)
+        FilterModel(label: "Gray", image: UIImage(named: "FilterGray")!, filterType: FilterType.bw, adjustable: true),
+        FilterModel(label: "Layer", image: UIImage(named: "FilterLayer")!, filterType: FilterType.layer, adjustable: false),
+        FilterModel(label: "Black", image: UIImage(named: "FilterBlack")!, filterType: FilterType.black, adjustable: false),
+        FilterModel(label: "Reverse", image: UIImage(named: "FilterReverse")!, filterType: FilterType.reverse, adjustable: false),
+        FilterModel(label: "Relief", image: UIImage(named: "FilterRelief")!, filterType: FilterType.relief, adjustable: false)
     ]
     
     var originalImage: UIImage?
@@ -42,12 +42,12 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
         filtersCollectionView.dataSource = self
         filtersCollectionView.delegate = self
         
-        densitySlider.hidden = true
+        densitySlider.isHidden = true
         filtersCollectionView.translatesAutoresizingMaskIntoConstraints = false
         targetImage.translatesAutoresizingMaskIntoConstraints = false
 
         loadImage(UIImage(named: "SampleImage")!)
-        compareBtn.enabled = false
+        compareBtn.isEnabled = false
         
         let tap = UILongPressGestureRecognizer(target: self, action: #selector(ViewController.imageTouched(_:)))
         tap.minimumPressDuration = 0
@@ -59,62 +59,62 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onShare(sender: AnyObject) {
+    @IBAction func onShare(_ sender: AnyObject) {
         let activityController = UIActivityViewController(activityItems: [targetImage.image!], applicationActivities: nil)
-        presentViewController(activityController, animated: true, completion: nil)
+        present(activityController, animated: true, completion: nil)
     }
 
-    @IBAction func changeDensityValue(sender: AnyObject) {
+    @IBAction func changeDensityValue(_ sender: AnyObject) {
         showFilterImage()
     }
     
-    @IBAction func onNewPhoto(sender: AnyObject) {
-        let actionSheet = UIAlertController(title: "New photo", message: nil, preferredStyle: .ActionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { (action) in
+    @IBAction func onNewPhoto(_ sender: AnyObject) {
+        let actionSheet = UIAlertController(title: "New photo", message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
             self.showCamera()
         }))
-        actionSheet.addAction(UIAlertAction(title: "Album", style: .Default, handler: { (action) in
+        actionSheet.addAction(UIAlertAction(title: "Album", style: .default, handler: { (action) in
             self.showAlbum()
         }))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         
-        self.presentViewController(actionSheet, animated: true, completion: nil)
+        self.present(actionSheet, animated: true, completion: nil)
     }
 
-    @IBAction func onCompare(sender: UIButton) {
-        if sender.selected {
+    @IBAction func onCompare(_ sender: UIButton) {
+        if sender.isSelected {
             showFilterImage()
         } else {
             updateTargetImage(originalImage!)
-            originalLabel.hidden = false
+            originalLabel.isHidden = false
         }
         
-        sender.selected = !sender.selected
+        sender.isSelected = !sender.isSelected
     }
     
-    @IBAction func onFilter(sender: UIButton) {
-        sender.selected = !sender.selected
+    @IBAction func onFilter(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
 
-        if(sender.selected) {
+        if(sender.isSelected) {
             showFiltersColectionView()
         } else {
             hideFiltersCollectionView()
         }
     }
     
-    func imageTouched(gesture: UITapGestureRecognizer) {
+    func imageTouched(_ gesture: UITapGestureRecognizer) {
         if selectedType == nil {
             return
         }
-        if gesture.state == .Began {
+        if gesture.state == .began {
             updateTargetImage(originalImage!)
-            originalLabel.hidden = false
-        } else if gesture.state == .Ended {
+            originalLabel.isHidden = false
+        } else if gesture.state == .ended {
             showFilterImage()
         }
     }
     
-    func loadImage(image: UIImage) {
+    func loadImage(_ image: UIImage) {
         originalImage = image
         imageFilters = ImageFilters(image: image)
         targetImage.image = image
@@ -123,92 +123,92 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
     func showFiltersColectionView() {
         view.addSubview(filtersCollectionView)
         
-        let bottomConstraint = filtersCollectionView.bottomAnchor.constraintEqualToAnchor(actionStackView.topAnchor)
-        let leftConstraint = filtersCollectionView.leftAnchor.constraintEqualToAnchor(view.leftAnchor)
-        let rightConstraint = filtersCollectionView.rightAnchor.constraintEqualToAnchor(view.rightAnchor)
-        let heightConstraint = filtersCollectionView.heightAnchor.constraintEqualToConstant(119)
-        NSLayoutConstraint.activateConstraints([bottomConstraint, leftConstraint, rightConstraint, heightConstraint])
+        let bottomConstraint = filtersCollectionView.bottomAnchor.constraint(equalTo: actionStackView.topAnchor)
+        let leftConstraint = filtersCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor)
+        let rightConstraint = filtersCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        let heightConstraint = filtersCollectionView.heightAnchor.constraint(equalToConstant: 119)
+        NSLayoutConstraint.activate([bottomConstraint, leftConstraint, rightConstraint, heightConstraint])
         view.layoutIfNeeded()
         
         filtersCollectionView.alpha = 0
-        UIView.animateWithDuration(0.4) {
+        UIView.animate(withDuration: 0.4, animations: {
             self.filtersCollectionView.alpha = 1
-        }
+        }) 
     }
     
     func hideFiltersCollectionView() {
-        UIView.animateWithDuration(0.4, animations: { 
+        UIView.animate(withDuration: 0.4, animations: { 
             self.filtersCollectionView.alpha = 0
-            }) { completed in
+            }, completion: { completed in
                 if completed {
                     self.filtersCollectionView.removeFromSuperview()
                 }
-        }
+        }) 
     }
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filtersData.count
     }
     
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        if let filterViewCell = collectionView.cellForItemAtIndexPath(indexPath) as? FilterViewCell {
-            UIView.animateWithDuration(0.1) {
-                filterViewCell.backgroundColor = UIColor.clearColor()
-                filterViewCell.selected = false
-            }
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let filterViewCell = collectionView.cellForItem(at: indexPath) as? FilterViewCell {
+            UIView.animate(withDuration: 0.1, animations: {
+                filterViewCell.backgroundColor = UIColor.clear
+                filterViewCell.isSelected = false
+            }) 
         }
     }
  
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let filterViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("FilterViewCell", forIndexPath: indexPath) as! FilterViewCell
-        let filterData = filtersData[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let filterViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterViewCell", for: indexPath) as! FilterViewCell
+        let filterData = filtersData[(indexPath as NSIndexPath).row]
         filterViewCell.populate(filterData.label, image: filterData.image)
-        filterViewCell.backgroundColor = filterViewCell.selected ? filterCellSelectedColor : UIColor.clearColor()
+        filterViewCell.backgroundColor = filterViewCell.isSelected ? filterCellSelectedColor : UIColor.clear
     
         return filterViewCell
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let filterViewCell = collectionView.cellForItemAtIndexPath(indexPath) as? FilterViewCell {
-            UIView.animateWithDuration(0.1) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let filterViewCell = collectionView.cellForItem(at: indexPath) as? FilterViewCell {
+            UIView.animate(withDuration: 0.1, animations: {
                 filterViewCell.backgroundColor = self.filterCellSelectedColor
-                filterViewCell.selected = true
-            }
+                filterViewCell.isSelected = true
+            }) 
         }
 
-        let filterData = filtersData[indexPath.row]
+        let filterData = filtersData[(indexPath as NSIndexPath).row]
         selectedType = filterData.filterType
-        densitySlider.hidden = !filterData.adjustable
+        densitySlider.isHidden = !filterData.adjustable
         densitySlider.value = 50
         showFilterImage()
     }
     
     func showFilterImage() {
-        compareBtn.enabled = true
-        originalLabel.hidden = true
+        compareBtn.isEnabled = true
+        originalLabel.isHidden = true
         
         let density = densitySlider.value * 1.0 / densitySlider.maximumValue
         var processedImage: UIImage
         switch selectedType! {
-        case .BW:
+        case .bw:
             processedImage = imageFilters!.apply(BWFilter(intensity: density))
-        case .LAYER:
+        case .layer:
             processedImage = imageFilters!.apply(LayerFilter())
-        case .BLACK:
+        case .black:
             processedImage = imageFilters!.apply(BlackFilter())
-        case .REVERSE:
+        case .reverse:
             processedImage = imageFilters!.apply(ReverseFilter())
-        case .RELIEF:
+        case .relief:
             processedImage = imageFilters!.apply(ReliefFilter())
         }
         
         updateTargetImage(processedImage)
     }
     
-    private func updateTargetImage(processedImage: UIImage) {
+    fileprivate func updateTargetImage(_ processedImage: UIImage) {
         self.targetImage.alpha = 0.2
         self.targetImage.image = processedImage
-        UIView.animateWithDuration(0.75, animations: {
+        UIView.animate(withDuration: 0.75, animations: {
             self.targetImage.alpha = 1
         })
     }
@@ -216,24 +216,24 @@ class ViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICo
     func showCamera() {
         let cameraPicker = UIImagePickerController()
         cameraPicker.delegate = self
-        cameraPicker.sourceType = .Camera
-        presentViewController(cameraPicker, animated: true, completion: nil)
+        cameraPicker.sourceType = .camera
+        present(cameraPicker, animated: true, completion: nil)
     }
     
     func showAlbum() {
         let albumPicker = UIImagePickerController()
         albumPicker.delegate = self
-        albumPicker.sourceType = .PhotoLibrary
-        presentViewController(albumPicker, animated: true, completion: nil)
+        albumPicker.sourceType = .photoLibrary
+        present(albumPicker, animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // when user click the cancel button, should handle it here.
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             loadImage(image)
         }
